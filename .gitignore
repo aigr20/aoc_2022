@@ -1,0 +1,12 @@
+
+.vscode
+CMakeFiles
+build
+*.a
+*.cmake
+
+CMakeCache.txt
+Day7
+Makefile
+input
+input_test
