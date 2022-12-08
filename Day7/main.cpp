@@ -12,8 +12,8 @@ int main(int argc, char **argv)
     input.open("input", std::ios::in);
     if (input.is_open())
     {
-        Node *root = new Node("/", Type::DIRECTORY);
-        Node *open_node = root;
+        Filesystem::Node *root = new Filesystem::Node("/", Filesystem::Type::DIRECTORY);
+        Filesystem::Node *open_node = root;
 
         while (getline(input, line))
         {
@@ -24,7 +24,6 @@ int main(int argc, char **argv)
                 std::stringstream linestream = std::stringstream(line);
                 std::vector<std::string> command_vector;
                 std::string value;
-                int index = 0;
                 while (getline(linestream, value, ' '))
                 {
                     command_vector.push_back(value);
@@ -57,7 +56,7 @@ int main(int argc, char **argv)
                 if (is_dir)
                 {
                     line.erase(0, 4);
-                    Node *new_node = new Node(line, Type::DIRECTORY);
+                    Filesystem::Node *new_node = new Filesystem::Node(line, Filesystem::Type::DIRECTORY);
                     new_node->prev_dir = open_node;
                     open_node->nodes.push_back(new_node);
                 }
@@ -66,7 +65,7 @@ int main(int argc, char **argv)
                     size_t split_index = line.find(" ");
                     int size = std::stoi(line.substr(0, split_index));
                     line.erase(0, split_index + 1);
-                    Node *file = new Node(line, Type::FILE_);
+                    Filesystem::Node *file = new Filesystem::Node(line, Filesystem::Type::FILE);
                     file->size = size;
                     file->prev_dir = open_node;
                     open_node->nodes.push_back(file);
@@ -76,7 +75,7 @@ int main(int argc, char **argv)
 
         root->process_dir_sizes();
         // root->print();
-        std::vector<Node *> smol;
+        std::vector<Filesystem::Node *> smol;
         root->smaller_than(100000, smol);
         int sum = 0;
         for (auto &node : smol)
