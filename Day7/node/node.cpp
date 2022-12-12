@@ -46,4 +46,20 @@ namespace Filesystem
             node->smaller_than(max, collected);
         }
     }
+    void Node::find_removal_candidates(int available, int desired, std::vector<Node *> &candidates)
+    {
+        for (auto &node : this->nodes)
+        {
+            if (node->type == Type::DIRECTORY && available + node->size >= desired)
+            {
+                candidates.push_back(node);
+            }
+            node->find_removal_candidates(available, desired, candidates);
+        }
+    }
+
+    bool Node::compare_size(Node *a, Node *b)
+    {
+        return a->size < b->size;
+    }
 }

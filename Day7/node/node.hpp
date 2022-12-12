@@ -6,6 +6,7 @@
 
 namespace Filesystem
 {
+    const int TOTAL_SPACE = 70000000;
 
     enum Type
     {
@@ -27,6 +28,9 @@ namespace Filesystem
         void print();
         void process_dir_sizes();
         void smaller_than(int, std::vector<Node *> &);
+        void find_removal_candidates(int, int, std::vector<Node *> &);
+
+        static bool compare_size(Node *a, Node *b);
     };
 }
 #endif

@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -51,7 +52,19 @@ void part_1(Filesystem::Node *&root)
     {
         sum += node->size;
     }
-    std::cout << sum << std::endl;
+    std::cout << "Part 1: " << sum << std::endl;
+}
+
+void part_2(Filesystem::Node *&root)
+{
+    const int DESIRED_SPACE = 30000000;
+    int available_space = Filesystem::TOTAL_SPACE - root->size;
+    Filesystem::Node *to_delete = nullptr;
+    std::vector<Filesystem::Node *> deletion_candidates;
+    root->find_removal_candidates(available_space, DESIRED_SPACE, deletion_candidates);
+    std::sort(deletion_candidates.begin(), deletion_candidates.end(), Filesystem::Node::compare_size);
+
+    std::cout << "Part 2: " << deletion_candidates[0]->size << std::endl;
 }
 
 int main(int argc, char **argv)
@@ -106,6 +119,7 @@ int main(int argc, char **argv)
 
         root->process_dir_sizes();
         part_1(root);
+        part_2(root);
         delete root;
         input.close();
     }
