@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 project(Day7 VERSION 1.0)
 
 add_executable(Day7 main.cpp node/node.hpp)
+target_compile_options(Day7 PRIVATE -Wall -Werror)
 target_include_directories(Day7 PUBLIC
     "${PROJECT_BINARY_DIR}"
     "${PROJECT_SOURCE_DIR}/node"

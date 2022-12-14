@@ -4,7 +4,7 @@
 namespace Filesystem
 {
 
-    Node::Node(std::string name, Type type) : name(name), type(type), prev_dir(nullptr), size(0)
+    Node::Node(std::string name, Type type) : name(name), size(0), type(type), prev_dir(nullptr)
     {
     }
 

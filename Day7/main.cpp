@@ -59,7 +59,6 @@ void part_2(Filesystem::Node *&root)
 {
     const int DESIRED_SPACE = 30000000;
     int available_space = Filesystem::TOTAL_SPACE - root->size;
-    Filesystem::Node *to_delete = nullptr;
     std::vector<Filesystem::Node *> deletion_candidates;
     root->find_removal_candidates(available_space, DESIRED_SPACE, deletion_candidates);
     std::sort(deletion_candidates.begin(), deletion_candidates.end(), Filesystem::Node::compare_size);
